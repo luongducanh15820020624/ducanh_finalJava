@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Homepage</title>
+    <link rel="stylesheet" href="Stylewelcome.css">
+    <style>
+        /* Add some basic styling for the search box */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #333;
+            padding: 10px;
+        }
+
+        .nav-list {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-list li {
+            padding: 8px 16px;
+        }
+
+        .nav-list li a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .nav-list li a:hover {
+            color: #EE4D2D; /* Shopee's primary orange color */
+        }
+
+        .search-box {
+            display: flex;
+            align-items: center;
+        }
+
+        .search-box input[type="text"] {
+            padding: 8px;
+            font-size: 16px;
+            border: 2px solid #ced4da;
+            border-radius: 4px 0 0 4px;
+            outline: none;
+            width: 200px; /* Set a width for the search box */
+        }
+
+        .search-box button {
+            padding: 8px 16px;
+            background-color: #EE4D2D; /* Shopee's primary orange color */
+            border: none;
+            color: white;
+            cursor: pointer;
+            border-radius: 0 4px 4px 0;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .search-box button:hover {
+            background-color: #D13F2A; /* Darker shade of Shopee's orange */
+        }
+
+        .header h1 {
+            color: black; /* Change the color of "Welcome to Shop!" to black */
+        }
+    </style>
+</head>
+<body>
+<div class="header">
+    <h1>Welcome to Shop!</h1>
+    <form th:action="@{/logout}" method="post">
+        <button type="submit">Sign out</button>
+    </form>
+    <div><a href="orders?">Xem đơn hàng nhé</a></div>
+</div>
+
+<!-- Navigation bar with search box -->
+<nav class="navbar">
+    <ul class="nav-list">
+        <li><a th:href="@{/}">All</a></li>
+        <li><a th:href="@{/catalog1}">Catalog 1</a></li>
+        <li><a th:href="@{/catalog2}">Catalog 2</a></li>
+    </ul>
+    <form class="search-box" th:action="@{/search}" method="get">
+        <input type="text" name="query" placeholder="Search products..." required>
+        <button type="submit">Search</button>
+    </form>
+</nav>
+
+<div class="product-list">
+    <div class="product" th:each="product: ${products}" th:object="${product}">
+        <div class="Product-div">
+            <div class="product-img"><img th:src="*{picture}" alt="Product Image"/> </div>
+            <div class="product-name"><b><span th:text="*{name}"></span></b></div>
+            <div class="product-price"><b><span th:text="*{price}"></span></b> đ</div>
+        </div>
+        <form th:action="@{/purchase/{productId}(productId=${product.id})}" method="get">
+            <button type="submit">Buy</button>
+        </form>
+    </div>
+</div>
+<div class="footer">
+    <p>&copy; 2024 Spring Boot Security Application</p>
+</div>
+</body>
+</html>

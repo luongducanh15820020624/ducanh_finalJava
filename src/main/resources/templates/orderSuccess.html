@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Order Success</title>
+    <link rel="stylesheet" href="Style2.css">
+</head>
+<body>
+<h1>Đặt hàng thành công!</h1>
+<p>Cảm ơn bạn đã mua hàng. Đơn hàng của bạn đã được tạo thành công.</p>
+<p>Mã đơn hàng: <span th:text="${order.id}"></span></p>
+<p>Tổng số lượng: <span th:text="${order.totalQty}"></span></p>
+<p>Tổng số tiền: <span th:text="${order.totalAmount}"></span></p>
+
+<form th:action="@{/orders}" method="get">
+    <button type="submit">Xem đơn hàng của bạn</button>
+</form>
+</body>
+</html>
